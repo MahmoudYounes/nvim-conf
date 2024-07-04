@@ -6,7 +6,7 @@ vim.g.loaded_netrwPlugin = 1
 
 -- Nvim tree key mappings
 local function nvim_tree_key_maps(bufnr)
-   local api = require 'nvim-tree.api' 
+   local api = require 'nvim-tree.api'
    -- this function formats the options passed to it to return a structure that is
    -- understandable to nvim-tree api
    local function opts(desc)

@@ -28,6 +28,24 @@ require("nvim-treesitter.configs").setup({
   modules = {},
   indent = {
 	enable = true,
+  },
+  playground = {
+    enable = true,
+    disable = {},
+    updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+    persist_queries = false, -- Whether the query persists across vim sessions
+    keybindings = {
+      toggle_query_editor = '<leader>do',
+      toggle_hl_groups = '<leader>di',
+      toggle_injected_languages = '<leader>dt',
+      toggle_anonymous_nodes = '<leader>da',
+      toggle_language_display = '<leader>dI',
+      focus_language = '<leader>df',
+      unfocus_language = '<leader>dF',
+      update = '<leader>dR',
+      goto_node = '<leader>dg',
+      show_help = '<leader>d?',
+    },
   }
 })
 
