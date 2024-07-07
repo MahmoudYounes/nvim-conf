@@ -5,6 +5,7 @@ vim.call("plug#begin")
 	Plug('williamboman/mason-lspconfig.nvim')				-- Mason integration with lsp config
 	Plug('hrsh7th/nvim-cmp')
     Plug('hrsh7th/cmp-nvim-lsp')
+    Plug('neovim/nvim-lspconfig')
     Plug('L3MON4D3/LuaSnip')
     Plug('VonHeikemen/lsp-zero.nvim', {['branch']= 'v3.x'})
     Plug('williamboman/mason.nvim') 					-- Mason package manager
