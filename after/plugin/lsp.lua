@@ -7,7 +7,15 @@ lsp_zero.on_attach(function(client, bufnr)
   -- to learn the available actions
       lsp_zero.default_keymaps({buffer = bufnr})
       vim.keymap.set('n', '<leader>gd', vim.lsp.buf.definition)
+      vim.keymap.set('n', '<leader>gD', vim.lsp.buf.declaration)
+      vim.keymap.set('n', '<leader>gi', vim.lsp.buf.implementation)
+      vim.keymap.set('n', '<leader>gr', vim.lsp.buf.references)
+      vim.keymap.set('n', '<leader>re', vim.lsp.buf.rename)
+      vim.keymap.set('n', '<leader>fmt', vim.lsp.buf.format)
+
     end)
+
+lsp_zero.format_on_save()
 
 --- if you want to know more about lsp-zero and mason.nvim
 --- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guide/integrate-with-mason-nvim.md
