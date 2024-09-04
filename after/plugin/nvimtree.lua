@@ -23,6 +23,8 @@ local function nvim_tree_key_maps(bufnr)
   api.config.mappings.default_on_attach(bufnr)
 
   -- custom mappings
+  vim.keymap.set('n', '<C-r>o',   api.tree.change_root_to_node,        opts('CD'))
+  vim.keymap.set('n', '<C-r>cd',   api.node.open.replace_tree_buffer,   opts('Open: In Place'))
   vim.keymap.set('n', '<C-r>v', api.node.open.vertical, opts('Open: Vertical Split'))
   vim.keymap.set('n', '<C-r>h', api.node.open.horizontal, opts('Open: Horizontal Split'))
   vim.keymap.set('n', '<C-r>fc', api.fs.create, opts('Create File Or Directory'))

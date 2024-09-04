@@ -2,20 +2,26 @@ print("hello from lsp module")
 local lsp_zero = require('lsp-zero')
 local vim = vim
 
-lsp_zero.on_attach(function(client, bufnr)
-  -- see :help lsp-zero-keybindings
-  -- to learn the available actions
-      lsp_zero.default_keymaps({buffer = bufnr})
-      vim.keymap.set('n', '<leader>gd', vim.lsp.buf.definition)
-      vim.keymap.set('n', '<leader>gD', vim.lsp.buf.declaration)
-      vim.keymap.set('n', '<leader>gi', vim.lsp.buf.implementation)
-      vim.keymap.set('n', '<leader>gr', vim.lsp.buf.references)
-      vim.keymap.set('n', '<leader>re', vim.lsp.buf.rename)
-      vim.keymap.set('n', '<leader>fmt', vim.lsp.buf.format)
+local on_attach = function(client, bufnr)
+    -- see :help lsp-zero-keybindings
+    -- to learn the available actions
+    local opts = { noremap=true, silent=true, buffer=bufnr }
+ 
+    -- Enable completion triggered by <c-x><c-o>
+    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+    
+    vim.keymap.set('n', '<leader>gd', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', '<leader>gD', vim.lsp.buf.declaration, opts)
+    vim.keymap.set('n', '<leader>gi', vim.lsp.buf.implementation, opts)
+    vim.keymap.set('n', '<leader>gr', vim.lsp.buf.references, opts)
+    vim.keymap.set('n', '<leader>re', vim.lsp.buf.rename, opts)
+    vim.keymap.set('n', '<leader>fmt', vim.lsp.buf.format, opts)
+    vim.keymap.set('n', '<leader>gc', vim.lsp.buf.code_action, opts)
+end
 
-    end)
+-- lsp_zero.on_attach(on_attach)
 
-lsp_zero.format_on_save()
+-- lsp_zero.format_on_save()
 
 --- if you want to know more about lsp-zero and mason.nvim
 --- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guide/integrate-with-mason-nvim.md
@@ -45,4 +51,11 @@ require("mason-lspconfig").setup_handlers {
         end
     }
 
-
+require('lspconfig').gopls.setup {
+        cmd = {'gopls', '-remote=auto'},
+        on_attach = on_attach,
+        flags = {
+            -- Don't spam LSP with changes. Wait a second between each.
+            debounce_text_changes = 1000,
+        },
+}
