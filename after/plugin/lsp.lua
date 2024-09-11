@@ -1,7 +1,9 @@
 print("hello from lsp module")
-local lsp_zero = require('lsp-zero')
-local vim = vim
 
+-- Add additional capabilities supported by nvim-cmp
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+-- configures key bindings
 local on_attach = function(client, bufnr)
     -- see :help lsp-zero-keybindings
     -- to learn the available actions
@@ -21,41 +23,77 @@ end
 
 -- lsp_zero.on_attach(on_attach)
 
--- lsp_zero.format_on_save()
 
---- if you want to know more about lsp-zero and mason.nvim
---- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guide/integrate-with-mason-nvim.md
-require("mason").setup({
-    ui = {
-        icons = {
-            package_installed = "✓",
-            package_pending = "➜",
-            package_uninstalled = "✗"
+local lspconfig = require('lspconfig')
+
+lspconfig.lua_ls.setup {
+    -- ... other configs
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = { 'vim' }
+            }
         }
-    }
-})
+    },
+    on_attach = on_attach,
+    capabilities = capabilities
+}
 
-require('mason-lspconfig').setup()
+lspconfig.gopls.setup {
+    cmd = { 'gopls', '-remote=auto' },
+    on_attach = on_attach,
+    flags = {
+        -- Don't spam LSP with changes. Wait a second between each.
+        debounce_text_changes = 1000,
+    },
+    capabilities = capabilities
+}
 
-require("mason-lspconfig").setup_handlers {
-        -- The first entry (without a key) will be the default handler
-        -- and will be called for each installed server that doesn't have
-        -- a dedicated handler.
-        function (server_name) -- default handler (optional)
-            require("lspconfig")[server_name].setup {}
-        end,
-        -- Next, you can provide a dedicated handler for specific servers.
-        -- For example, a handler override for the `rust_analyzer`:
-        ["rust_analyzer"] = function ()
-            require("rust-tools").setup {}
-        end
-    }
+lspconfig.clangd.setup{
+    on_attach = on_attach,
+    capabilities = capabilities
+}
 
-require('lspconfig').gopls.setup {
-        cmd = {'gopls', '-remote=auto'},
-        on_attach = on_attach,
-        flags = {
-            -- Don't spam LSP with changes. Wait a second between each.
-            debounce_text_changes = 1000,
-        },
+local luasnip = require 'luasnip'
+
+-- nvim-cmp setup
+local cmp = require 'cmp'
+cmp.setup {
+  snippet = {
+    expand = function(args)
+      luasnip.lsp_expand(args.body)
+    end,
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<C-u>'] = cmp.mapping.scroll_docs(-4), -- Up
+    ['<C-d>'] = cmp.mapping.scroll_docs(4), -- Down
+    -- C-b (back) C-f (forward) for snippet placeholder navigation.
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<CR>'] = cmp.mapping.confirm {
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    },
+    ['<Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+    ['<S-Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+  }),
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' },
+  },
 }
