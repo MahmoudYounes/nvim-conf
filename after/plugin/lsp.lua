@@ -1,10 +1,8 @@
-print("hello from lsp module")
-
 -- Add additional capabilities supported by nvim-cmp
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 -- configures key bindings
-local on_attach = function(client, bufnr)
+function on_attach(client, bufnr)
     -- see :help lsp-zero-keybindings
     -- to learn the available actions
     local opts = { noremap=true, silent=true, buffer=bufnr }
@@ -21,13 +19,22 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', '<leader>gc', vim.lsp.buf.code_action, opts)
 end
 
--- lsp_zero.on_attach(on_attach)
-
+local lsp_zero = require('lsp-zero')
+lsp_zero.on_attach(on_attach)
 
 local lspconfig = require('lspconfig')
 
+lspconfig.gopls.setup {
+    cmd = { 'gopls', '-remote=auto' },
+    on_attach = on_attach, 
+    flags = {
+        -- Don't spam LSP with changes. Wait a second between each.
+        debounce_text_changes = 1000,
+    },
+    capabilities = capabilities
+}
+
 lspconfig.lua_ls.setup {
-    -- ... other configs
     settings = {
         Lua = {
             diagnostics = {
@@ -35,17 +42,7 @@ lspconfig.lua_ls.setup {
             }
         }
     },
-    on_attach = on_attach,
-    capabilities = capabilities
-}
-
-lspconfig.gopls.setup {
-    cmd = { 'gopls', '-remote=auto' },
-    on_attach = on_attach,
-    flags = {
-        -- Don't spam LSP with changes. Wait a second between each.
-        debounce_text_changes = 1000,
-    },
+    on_attach = on_attach, 
     capabilities = capabilities
 }
 
@@ -97,3 +94,5 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
+
+

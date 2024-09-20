@@ -41,7 +41,7 @@ local function opts(desc)
 end
 
 local vim = vim
-vim.keymap.set('n', '<C-a>m', harpoonmark.add_file, opts('Harpoon: Mark file'))
+vim.keymap.set('n', '<C-a>a', harpoonmark.add_file, opts('Harpoon: Mark file'))
 vim.keymap.set('n', '<C-a>t', harpoonui.toggle_quick_menu, opts('Harpoon: Toggle'))
 vim.keymap.set('n', '<C-a>1', function() harpoonui.nav_file(1) end, opts('Harpoon: nav file 1'))
 vim.keymap.set('n', '<C-a>2', function() harpoonui.nav_file(2) end, opts('Harpoon: nav file 2'))
