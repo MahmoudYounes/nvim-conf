@@ -1,3 +1,3 @@
-require('git-blame').setup({
+require('gitblame').setup({
   enabled=true
 })
