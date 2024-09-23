@@ -21,5 +21,6 @@ vim.call("plug#begin")
     Plug('ThePrimeagen/harpoon')
     Plug('duane9/nvim-rg')
     Plug('mbbill/undotree')
+  Plug('f-person/git-blame.nvim')
 vim.call("plug#end")
 
