@@ -6,16 +6,15 @@ function on_attach(client, bufnr)
     -- see :help lsp-zero-keybindings
     -- to learn the available actions
     local opts = { noremap=true, silent=true, buffer=bufnr }
- 
+
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-    
     vim.keymap.set('n', '<leader>gd', vim.lsp.buf.definition, opts)
     vim.keymap.set('n', '<leader>gD', vim.lsp.buf.declaration, opts)
     vim.keymap.set('n', '<leader>gi', vim.lsp.buf.implementation, opts)
     vim.keymap.set('n', '<leader>gr', vim.lsp.buf.references, opts)
-    vim.keymap.set('n', '<leader>re', vim.lsp.buf.rename, opts)
-    vim.keymap.set('n', '<leader>fmt', vim.lsp.buf.format, opts)
+    vim.keymap.set('n', '<leader>gR', vim.lsp.buf.rename, opts)
+    vim.keymap.set('n', '<leader>gf', vim.lsp.buf.format, opts)
     vim.keymap.set('n', '<leader>gc', vim.lsp.buf.code_action, opts)
 end
 
@@ -26,7 +25,7 @@ local lspconfig = require('lspconfig')
 
 lspconfig.gopls.setup {
     cmd = { 'gopls', '-remote=auto' },
-    on_attach = on_attach, 
+    on_attach = on_attach,
     flags = {
         -- Don't spam LSP with changes. Wait a second between each.
         debounce_text_changes = 1000,
@@ -42,7 +41,7 @@ lspconfig.lua_ls.setup {
             }
         }
     },
-    on_attach = on_attach, 
+    on_attach = on_attach,
     capabilities = capabilities
 }
 

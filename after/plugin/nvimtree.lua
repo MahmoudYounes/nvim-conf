@@ -49,7 +49,7 @@ require("nvim-tree").setup({
     group_empty = true,
   },
   filters = {
-    dotfiles = true,
+    dotfiles = false,
   },
   on_attach = nvim_tree_key_maps,
 })
