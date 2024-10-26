@@ -14,7 +14,7 @@ function on_attach(client, bufnr)
     vim.keymap.set('n', '<leader>gi', vim.lsp.buf.implementation, opts)
     vim.keymap.set('n', '<leader>gr', vim.lsp.buf.references, opts)
     vim.keymap.set('n', '<leader>gR', vim.lsp.buf.rename, opts)
-    vim.keymap.set('n', '<leader>gf', vim.lsp.buf.format, opts)
+    vim.keymap.set('n', '<leader>f', vim.lsp.buf.format, opts)
     vim.keymap.set('n', '<leader>gc', vim.lsp.buf.code_action, opts)
 end
 
@@ -94,4 +94,6 @@ cmp.setup {
   },
 }
 
-
+vim.diagnostic.config({
+    virtual_text = true
+})
