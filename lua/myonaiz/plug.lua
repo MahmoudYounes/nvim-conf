@@ -17,13 +17,16 @@ vim.call("plug#begin")
 	Plug('nvim-lua/plenary.nvim')						-- Depedency for telescope
 	Plug('nvim-telescope/telescope.nvim', {['tag']='0.1.8'})			-- Telescope
 	Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do']= 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' })  -- FZF native
-    Plug('nvim-lua/plenary.nvim') -- don't forget to add this one if you don't have it yet!
-    Plug('ThePrimeagen/harpoon')
-    Plug('duane9/nvim-rg')
-    Plug('mbbill/undotree')
+  Plug('nvim-lua/plenary.nvim') -- don't forget to add this one if you don't have it yet!
+  Plug('ThePrimeagen/harpoon')
+  Plug('duane9/nvim-rg')
+  Plug('mbbill/undotree')
   Plug('f-person/git-blame.nvim')
-
-
- Plug('folke/trouble.nvim')
+  Plug('nvim-neotest/nvim-nio')
+  Plug('mfussenegger/nvim-dap')
+  Plug('leoluz/nvim-dap-go')
+  Plug('rcarriga/nvim-dap-ui')
+  Plug('theHamsta/nvim-dap-virtual-text')
+  Plug('folke/trouble.nvim')
 vim.call("plug#end")
 

@@ -1,7 +1,5 @@
 local harpoonui = require('harpoon.ui')
 local harpoonmark = require('harpoon.mark')
-local harpoonterm = require('harpoon.term')
-local harpoontmux = require('harpoon.tmux')
 local harpoon = require('harpoon')
 
 local global_settings = {
