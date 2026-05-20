@@ -21,35 +21,6 @@ end
 local lsp_zero = require('lsp-zero')
 lsp_zero.on_attach(ONATTACH)
 
-local lspconfig = require('lspconfig')
-
-lspconfig.gopls.setup {
-    cmd = { 'gopls', '-remote=auto' },
-    on_attach = ONATTACH,
-    flags = {
-        -- Don't spam LSP with changes. Wait a second between each.
-        debounce_text_changes = 1000,
-    },
-    capabilities = capabilities
-}
-
-lspconfig.lua_ls.setup {
-    settings = {
-        Lua = {
-            diagnostics = {
-                globals = { 'vim' }
-            }
-        }
-    },
-    on_attach = ONATTACH,
-    capabilities = capabilities
-}
-
-lspconfig.clangd.setup{
-    on_attach = ONATTACH,
-    capabilities = capabilities,
-}
-
 local luasnip = require 'luasnip'
 
 -- nvim-cmp setup

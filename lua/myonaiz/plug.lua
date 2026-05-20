@@ -28,5 +28,6 @@ vim.call("plug#begin")
   Plug('rcarriga/nvim-dap-ui')
   Plug('theHamsta/nvim-dap-virtual-text')
   Plug('folke/trouble.nvim')
+  Plug('nvim-orgmode/orgmode')
 vim.call("plug#end")
 
