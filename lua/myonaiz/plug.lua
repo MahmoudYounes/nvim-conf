@@ -1,6 +1,19 @@
 -- package manager configuration
 --
-local Plug = vim.fn["plug#"]
+-- auto install vim-plug and plugins, if not found
+local data_dir = vim.fn.stdpath('data')
+if vim.fn.empty(vim.fn.glob(data_dir .. '/site/autoload/plug.vim')) == 1 then
+	vim.cmd('silent !curl -fLo ' .. data_dir .. '/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
+	vim.o.runtimepath = vim.o.runtimepath
+	vim.cmd('autocmd VimEnter * PlugInstall --sync | source $MYVIMRC')
+end
+
+local vim = vim
+local Plug = vim.fn['plug#']
+
+vim.g.start_time = vim.fn.reltime()
+vim.loader.enable() --  SPEEEEEEEEEEED 
+
 vim.call("plug#begin")
 	Plug('williamboman/mason-lspconfig.nvim')				-- Mason integration with lsp config
 	Plug('hrsh7th/nvim-cmp')
@@ -9,8 +22,8 @@ vim.call("plug#begin")
   Plug('L3MON4D3/LuaSnip')
   Plug('VonHeikemen/lsp-zero.nvim', {['branch']= 'v3.x'})
   Plug('williamboman/mason.nvim') 					-- Mason package manager
-  Plug('nvim-treesitter/nvim-treesitter', {['do']= ':TSUpdate'})		-- Nvim treesitter
-	Plug('nvim-tree/nvim-web-devicons')					-- Nvim sidebar icons
+  Plug('nvim-treesitter/nvim-treesitter', {['do']= ':TSUpdate',['branch']='master'})		-- Nvim treesitter
+	Plug('nvim-tree/nvim-web-devicons', {['branch']='master'})					-- Nvim sidebar icons
 	Plug('nvim-tree/nvim-tree.lua')						-- Nvim sidebar
   Plug('nvim-treesitter/playground')                  -- Nvim treesitter plugin that prints the AST
 	Plug('navarasu/onedark.nvim')						-- Nvim onedark theme
