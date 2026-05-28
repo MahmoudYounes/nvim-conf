@@ -22,10 +22,9 @@ vim.call("plug#begin")
   Plug('L3MON4D3/LuaSnip')
   Plug('VonHeikemen/lsp-zero.nvim', {['branch']= 'v3.x'})
   Plug('williamboman/mason.nvim') 					-- Mason package manager
-  Plug('nvim-treesitter/nvim-treesitter', {['do']= ':TSUpdate',['branch']='master'})		-- Nvim treesitter
+  Plug('nvim-treesitter/nvim-treesitter', {['do']= ':TSUpdate' })		-- Nvim treesitter
 	Plug('nvim-tree/nvim-web-devicons', {['branch']='master'})					-- Nvim sidebar icons
 	Plug('nvim-tree/nvim-tree.lua')						-- Nvim sidebar
-  Plug('nvim-treesitter/playground')                  -- Nvim treesitter plugin that prints the AST
 	Plug('navarasu/onedark.nvim')						-- Nvim onedark theme
 	Plug('nvim-lua/plenary.nvim')						-- Depedency for telescope
 	Plug('nvim-telescope/telescope.nvim', {['tag']='0.1.8'})			-- Telescope
